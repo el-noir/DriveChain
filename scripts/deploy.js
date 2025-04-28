@@ -1,15 +1,15 @@
 const hre = require("hardhat");
 
-async function main(){
+async function main() {
   const Upload = await hre.ethers.getContractFactory("Upload");
   const upload = await Upload.deploy();
 
-  await upload.deployed();
+  await upload.waitForDeployment(); // Use this instead of .deployed()
 
-  console.log("Library deployed to: ", upload.address);
+  console.log("Library deployed to:", await upload.getAddress());
 }
 
-main.catch((error)=>{
+main().catch((error) => {
   console.error(error);
-  process.exitCode=1;
-})
+  process.exitCode = 1;
+});
