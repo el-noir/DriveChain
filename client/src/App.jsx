@@ -22,12 +22,19 @@ function App() {
       if (window.ethereum) {
         try {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
-          await provider.send("eth_requestAccounts", []);  // Request account access
+
+          window.ethereum.on("chainChanged", ()=> { 
+            window.location.reload();
+          });
+          window.ethereum.on("accountsChanged", ()=>{    // on changing the account
+            window.location.reload();
+          })
+
+          await provider.send("eth_requestAccounts", []);  
           const signer = provider.getSigner();
           const address = await signer.getAddress();
           setAccount(address);
-  
-          // Replace with the actual deployed contract address
+
           const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; 
           
           // Initialize contract instance
@@ -62,7 +69,12 @@ function App() {
 
       <p style={{color:"white"}}>Account: {account ? account:"Not Connected"}</p>
      </div>
-
+      
+      <FileUpload 
+      account={account}
+      provider={provider}
+     contract={contract}    
+      ></FileUpload>
       {/* If Modal is open, display it
       {modalOpen && <Modal />} */}
     </>
