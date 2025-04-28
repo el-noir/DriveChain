@@ -75,6 +75,10 @@ function App() {
       provider={provider}
      contract={contract}    
       ></FileUpload>
+      <Display 
+      contract={contract}
+      account= {account}
+      ></Display>
       {/* If Modal is open, display it
       {modalOpen && <Modal />} */}
     </>
