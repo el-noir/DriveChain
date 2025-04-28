@@ -59,8 +59,10 @@ function App() {
   
   return (
     <>
-      {/* {loading && <div>Loading...</div>}
-      {error && <div className="error">{error}</div>} */}
+   { !modalOpen && (<button className='share' onClick={()=> setModalOpen(true)}>Share</button>)} {""}
+
+   {modalOpen && (<Modal setModalOpen={setModalOpen} contract={contract}></Modal>)} 
+
      <div className='App'>
       <h1 style={{color: "white"}}> GDRIVE 3.0</h1>
       <div className='bg'></div>
